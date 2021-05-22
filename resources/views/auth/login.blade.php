@@ -1,7 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="{{ url('/static/js/login.js?='.time()) }}"></script>
-@CSRF
 
 <x-guest-layout>
     <x-jet-authentication-card>
@@ -30,6 +29,14 @@
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
+            <div class="mt-4" id='divcompanies'>
+            </div>
+
+            <div class="mt-4">
+                <select name="company_id" id="usercompanies" class="shadow appearance-none w-full border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </select>
+            </div>
+
             <div class="block mt-4">
                 <label for="remember_me" class="flex items-center">
                     <x-jet-checkbox id="remember_me" name="remember" />
@@ -44,7 +51,7 @@
                     </a>
                 @endif
 
-                <x-jet-button class="ml-4">
+                <x-jet-button class="ml-4" id="btnlogin">
                     {{ __('Log in') }}
                 </x-jet-button>
             </div>

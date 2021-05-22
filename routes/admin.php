@@ -12,14 +12,14 @@ use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\UserCompaniesController;
+use App\Http\Livewire\ProductComponent;
 
 Route::prefix('/admin')->group(function(){
     Route::get('/', [DashboardController::class,'getDashboard']);
-
     Route::get('/users',[UserController::class,'getUsers']);
 
     //Module Products-
-    Route::get('/products', [ProductController::class,'getHome']);
+    Route::get('/products', [ProductComponent::class,'default'])->name('products');
     Route::get('/products/add', [ProductController::class,'getProductAdd']);
     Route::post('/products/add', [ProductController::class,'postProductAdd']);
     Route::get('/product/{idMarca}/edit',[ProductController::class,'getProductEdit']);
@@ -27,7 +27,7 @@ Route::prefix('/admin')->group(function(){
     //Route::post('/products/{id}/gallery/add', [ProductController::class, 'postProductGalleryAdd']);
 
     //Module Categories
-    Route::get('/categories/{module}', [CategoryController::class,'getHome']);
+    Route::get('/categories', [CategoryController::class,'getHome'])->name('categories');
     Route::post('/categories/add', [CategoryController::class,'categoryAdd']);
     Route::get('/categories/{id}/edit', [CategoryController::class,'getCategoryEdit']);
     Route::post('/categories/{id}/edit', [CategoryController::class,'postCategoryEdit']);

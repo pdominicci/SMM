@@ -15,10 +15,10 @@ class CategoryController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('isadmin');
+        // $this->middleware('isadmin');
     }
-    public function getHome($module){
-        $cats = Category::where('module', $module)->orderBy('name', 'asc')->get();
+    public function getHome(){
+        $cats = Category::orderBy('name', 'asc')->get();
         $data = ['cats'=> $cats];
 
         return view('admin.categories.home', $data);
@@ -61,20 +61,15 @@ class CategoryController extends Controller
         ];
 
         $request->validate($rules,$messages);
-        // $validator = Validator::make($request->all(), $rules, $messages);
-        // if($validator->fails()):
-        //     return back()->withErrors($validator)->with('message','Se ha producido un error')->with('typealert', 'danger');
-        // else:
-            $c = new Category;
-            $c->module = $request->input('module');
-            $c->name = e($request->input('name'));
-            $c->slug = Str::slug($request->input('name'));
-            $c->icono = e($request->input('icon'));
-            if($c->save()):
-                return back()->with('message','La categoría ' . $c->name . ' se ha guardado exitosamente.')->with('typealert', 'success');
-            else:
-            endif;
-        // endif;
+        $c = new Category;
+        $c->module = $request->input('module');
+        $c->name = e($request->input('name'));
+        $c->slug = Str::slug($request->input('name'));
+        $c->icono = e($request->input('icon'));
+        if($c->save()):
+            return back()->with('message','La categoría ' . $c->name . ' se ha guardado exitosamente.')->with('typealert', 'success');
+        else:
+        endif;
     }
     public function getCategoryDelete(Request $request, $id){
         $c = Category::find($id);

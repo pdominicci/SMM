@@ -9,7 +9,8 @@ $(document).ready(function(){
             url:"/admin/usercompanies",
             type:"POST",
             data: {
-                email: email
+                email: email,
+                "_token": $("meta[name='csrf-token']").attr("content"),
             },
             success:function(data){
                 $('#usercompanies').empty()
@@ -58,7 +59,7 @@ $(document).ready(function(){
     });
 })
 function habilitarbotonlogin(company_id){
-    if (company_id) {
+    if (company_id != 0) {
         $("#btnlogin").attr("disabled", false)
         localStorage.setItem('company_id', company_id)
     } else {
