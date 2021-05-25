@@ -13,10 +13,11 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\UserCompaniesController;
 use App\Http\Livewire\ProductComponent;
+use App\Http\Livewire\CountryComponent;
 
 Route::prefix('/admin')->group(function(){
     Route::get('/', [DashboardController::class,'getDashboard']);
-    Route::get('/users',[UserController::class,'getUsers']);
+    Route::get('/users',[UserController::class,'getUsers'])->name('users');
 
     //Module Products-
     Route::get('/products', [ProductComponent::class,'default'])->name('products');
@@ -24,7 +25,6 @@ Route::prefix('/admin')->group(function(){
     Route::post('/products/add', [ProductController::class,'postProductAdd']);
     Route::get('/product/{idMarca}/edit',[ProductController::class,'getProductEdit']);
     Route::post('/products/{id}/edit', [ProductController::class,'postProductEdit']);
-    //Route::post('/products/{id}/gallery/add', [ProductController::class, 'postProductGalleryAdd']);
 
     //Module Categories
     Route::get('/categories', [CategoryController::class,'getHome'])->name('categories');
@@ -36,17 +36,17 @@ Route::prefix('/admin')->group(function(){
     //map module
     Route::get('/location', 'MapController@getLocation')->name('location');
 
-    Route::get('/countries', [CountryController::class, 'index']);
+    Route::get('/countries', [CountryComponent::class, 'default'])->name('countries');
     Route::get('/countries/add', [CountryController::class, 'create']);
     Route::post('/countries/add', [CountryController::class, 'store']);
     // Route::get('/modificarCategoria/{idCategoria}', [CategoriaController::class, 'edit']);
     // Route::post('/modificarCategoria/{idCategoria}', [CategoriaController::class, 'update']);
 
-    Route::get('/states', [StateController::class, 'index']);
+    Route::get('/states', [StateController::class, 'index'])->name('states');
     Route::get('/states/add', [StateController::class, 'create']);
     Route::post('/states/add', [StateController::class, 'store']);
 
-    Route::get('/cities', [CityController::class, 'index']);
+    Route::get('/cities', [CityController::class, 'index'])->name('cities');
     Route::get('/cities/add', [CityController::class, 'create']);
     Route::post('/cities/add', [CityController::class, 'store']);
 

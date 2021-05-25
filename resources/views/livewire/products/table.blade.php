@@ -28,7 +28,7 @@
                     </th>
                     <th scope="col" class="relative px-2 py-2">
                         <div wire:click="new" class="mr-6 text-lg lg:text-3xl font-bold hover:text-gray-400 active:text-gray-600 focus:outline-none focus:text-gray-600 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150" data-toggle="tooltip" data-placement="top" title="Agregar Producto">
-                            <i class="float-right fas fa-plus-circle"></i>
+                            <i class="mr-2 float-right far fa-plus-square"></i>
                         </div>
                     </th>
                 </tr>
@@ -53,7 +53,7 @@
                     </td>
                     <td class="pl-2 pr-6 text-right">
                         <a wire:click="edit({{ $product->id }})">
-                            <i class="text-xs lg:text-2xl fas fa-edit hover:text-gray-400 active:text-gray-600 focus:outline-none focus:text-gray-600 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150" data-toggle="tooltip" data-placement="top" title="Modificar Producto"></i>
+                            <i class="text-xs lg:text-2xl far fa-edit hover:text-gray-400 active:text-gray-600 focus:outline-none focus:text-gray-600 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150" data-toggle="tooltip" data-placement="top" title="Modificar Producto"></i>
                         </a>
                         <a wire:click="destroy({{ $product->id }})">
                             <i class="ml-2 text-xs lg:text-2xl far fa-trash-alt hover:text-gray-400 active:text-gray-600 focus:outline-none focus:text-gray-600 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150" data-toggle="tooltip" data-placement="top" title="Eliminar Producto"></i>

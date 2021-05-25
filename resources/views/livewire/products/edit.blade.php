@@ -9,17 +9,15 @@
 
         <div class="text-xl font-bold m-3">{{ __("Edit Product") }}</div>
 
-        @include('livewire.form')
+        @include('livewire.products.form')
 
         <div class="px-4 py-5 bg-gray-100 justify-end sm:p-6">
-            <button wire:click="update" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+            <x-jet-button wire:click="update">
                 {{ __("Confirm") }}
-            </button>
-
-            <button wire:click="default" class="items-center px-4 py-2 ml-4 px-4 py-2 bg-gray-500 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-900 focus:outline-none focus:border-gray-600 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+            </x-jet-button>
+            <x-jet-secondary-button wire:click="default" class="px-4 py-2 ml-4">
                 {{ __("Cancel") }}
-            </button>
+            </x-jet-secondary-button>
         </div>
-      </div>
     </div>
 </div>

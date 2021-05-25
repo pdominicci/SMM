@@ -27,13 +27,12 @@ class ProductComponent extends Component
         $data = ['products' => $products];
 
         return view('livewire.product-component', $data);
-        $this->emit('refreshParent');
     }
     public function new()
     {
         $this->name = '';
         $this->price = 0;
-        $this->view='create';
+        $this->view='products.create';
     }
     public function edit($id)
     {
@@ -43,7 +42,7 @@ class ProductComponent extends Component
         $this->name = $product->name;
         $this->price = $product->price;
 
-        $this->view = 'edit';
+        $this->view = 'products.edit';
     }
     public function update()
     {
@@ -94,9 +93,7 @@ class ProductComponent extends Component
         $p->contenido = '';
 
         $p->save();
-        $this->emit('refreshParent');
         $this->view = '';
-        return view('livewire.products');
     }
     public function default(){
         $this->view='';
