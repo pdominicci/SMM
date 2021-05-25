@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\UserCompaniesController;
 use App\Http\Livewire\Products\ProductComponent;
 use App\Http\Livewire\Countries\CountryComponent;
+use App\Http\Livewire\States\StateComponent;
 
 Route::prefix('/admin')->group(function(){
     Route::get('/', [DashboardController::class,'getDashboard']);
@@ -38,7 +39,7 @@ Route::prefix('/admin')->group(function(){
 
     Route::get('/countries/countries', [CountryComponent::class, 'default'])->name('countries');
 
-    Route::get('/states', [StateController::class, 'index'])->name('states');
+    Route::get('/states/state', [StateComponent::class, 'default'])->name('states');
     Route::get('/states/add', [StateController::class, 'create']);
     Route::post('/states/add', [StateController::class, 'store']);
 
