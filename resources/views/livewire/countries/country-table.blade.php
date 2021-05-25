@@ -1,5 +1,20 @@
 <div class="bg-white overflow-hidden shadow-md rounded-md col-span-12 sm:col-span-12">
     <div class="bg-gray-200 grid shadow-inner grid-cols-1 divide-y-2 divide-gray-300">
+        <div class="flex m-4">
+            <input class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+                wire:model="search" class="" type="text" placeholder={{ __("Search") }}>
+            <div class="block p-2 ">
+                <select wire:model="perPage" name="" id="" class="border-gray-300 rounded-md text-sm text-gray-500 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="5">5 {{ __("per page") }}</option>
+                    <option value="10">10 {{ __("per page") }}</option>
+                    <option value="15">15 {{ __("per page") }}</option>
+                    <option value="25">25 {{ __("per page") }}</option>
+                    <option value="50">50 {{ __("per page") }}</option>
+                    <option value="100">100 {{ __("per page") }}</option>
+                </select>
+            </div>
+        </div>
+        @if ($countries->count())
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr class="mx-10 sm:ml-4">
@@ -41,5 +56,13 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+            {{ $countries->links() }}
+        </div>
+    @else
+        <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6 text-gray-500">
+            {{ __("There are no results for this search") }} "{{ $search }}"
+        </div>
+    @endif
     </div>
 </div>

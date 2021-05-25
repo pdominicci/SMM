@@ -3,16 +3,25 @@
 namespace App\Http\Livewire\Countries;
 
 use App\Models\Country;
+use Livewire\WithPagination;
 use Livewire\Component;
 
 class CountryComponent extends Component
 {
+    use WithPagination;
     public $view = '';
     public $country_id, $country;
+    public $search = '';
+    public $perPage = '10';
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'perPage'
+    ];
 
     public function render()
     {
-        $countries = Country::orderBy('country', 'asc')->get();
+        //$products = Product::with('relCategory')->where('name', 'like', "%{$this->search}%")->orderBy('id','desc')->paginate($this->perPage);
+        $countries = Country::orderBy('country', 'asc')->where('country', 'like', "%{$this->search}%")->paginate($this->perPage);
         $data = ['countries' => $countries];
         return view('livewire.countries.country-component',$data);
     }
@@ -66,7 +75,7 @@ class CountryComponent extends Component
     public function destroy($id)
     {
         $c = Country::find($id);
-        $country = $this->country;
+        $country = $c->country;
         Country::destroy($id);
         session()->flash('success', __("The Country ':country' was deleted.", ['country' => $country]));
     }

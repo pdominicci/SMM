@@ -29,12 +29,14 @@ class ProductComponent extends Component
     }
     public function new()
     {
+        $this->validate(["name" => '']);
         $this->name = '';
         $this->price = 0;
         $this->view='create';
     }
     public function edit($id)
     {
+        $this->validate(["name" => '']);
         $product = Product::find($id);
 
         $this->product_id = $id;
@@ -61,12 +63,15 @@ class ProductComponent extends Component
         $p->discount = 0;
         $p->contenido = '';
         $p->save();
-
         $this->view='';
+        session()->flash('success', __("The Product ':name' was updated.", ['name' => $p->name]));
     }
     public function destroy($id)
     {
+        $p = Product::find($id);
+        $product = $p->name;
         Product::destroy($id);
+        session()->flash('success', __("The Product ':name' was deleted.", ['name' => $product]));
     }
 
     public function store()
@@ -93,6 +98,7 @@ class ProductComponent extends Component
 
         $p->save();
         $this->view = '';
+        session()->flash('success', __("The Product ':name' was created.", ['name' => $p->name]));
     }
     public function default(){
         $this->view='';
