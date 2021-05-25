@@ -12,15 +12,15 @@ use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\UserCompaniesController;
-use App\Http\Livewire\ProductComponent;
-use App\Http\Livewire\CountryComponent;
+use App\Http\Livewire\Products\ProductComponent;
+use App\Http\Livewire\Countries\CountryComponent;
 
 Route::prefix('/admin')->group(function(){
     Route::get('/', [DashboardController::class,'getDashboard']);
     Route::get('/users',[UserController::class,'getUsers'])->name('users');
 
     //Module Products-
-    Route::get('/products', [ProductComponent::class,'default'])->name('products');
+    Route::get('/products/product', [ProductComponent::class,'default'])->name('products');
     Route::get('/products/add', [ProductController::class,'getProductAdd']);
     Route::post('/products/add', [ProductController::class,'postProductAdd']);
     Route::get('/product/{idMarca}/edit',[ProductController::class,'getProductEdit']);
@@ -36,11 +36,7 @@ Route::prefix('/admin')->group(function(){
     //map module
     Route::get('/location', 'MapController@getLocation')->name('location');
 
-    Route::get('/countries', [CountryComponent::class, 'default'])->name('countries');
-    Route::get('/countries/add', [CountryController::class, 'create']);
-    Route::post('/countries/add', [CountryController::class, 'store']);
-    // Route::get('/modificarCategoria/{idCategoria}', [CategoriaController::class, 'edit']);
-    // Route::post('/modificarCategoria/{idCategoria}', [CategoriaController::class, 'update']);
+    Route::get('/countries/countries', [CountryComponent::class, 'default'])->name('countries');
 
     Route::get('/states', [StateController::class, 'index'])->name('states');
     Route::get('/states/add', [StateController::class, 'create']);

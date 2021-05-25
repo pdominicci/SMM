@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,14 +25,13 @@ class ProductComponent extends Component
 
         $products = Product::with('relCategory')->where('name', 'like', "%{$this->search}%")->orderBy('id','desc')->paginate($this->perPage);
         $data = ['products' => $products];
-
-        return view('livewire.product-component', $data);
+        return view('livewire.products.product-component', $data);
     }
     public function new()
     {
         $this->name = '';
         $this->price = 0;
-        $this->view='products.create';
+        $this->view='create';
     }
     public function edit($id)
     {
@@ -42,7 +41,7 @@ class ProductComponent extends Component
         $this->name = $product->name;
         $this->price = $product->price;
 
-        $this->view = 'products.edit';
+        $this->view = 'edit';
     }
     public function update()
     {
@@ -99,7 +98,7 @@ class ProductComponent extends Component
         $this->view='';
         $this->name = '';
         $this->price = 0;
-        return view('livewire.products');
+        return view('livewire.products.product');
     }
     // agregue esto por el problema de que solo buscaba si estabas posicionado
     // en la primer pagina. Este metodo no lo llama de ningun lado por lo visto

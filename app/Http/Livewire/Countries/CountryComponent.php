@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Countries;
 
 use App\Models\Country;
 use Livewire\Component;
-use Illuminate\Support\Facades\Session;
 
 class CountryComponent extends Component
 {
@@ -15,19 +14,19 @@ class CountryComponent extends Component
     {
         $countries = Country::orderBy('country', 'asc')->get();
         $data = ['countries' => $countries];
-        return view('livewire.country-component',$data);
+        return view('livewire.countries.country-component',$data);
     }
     public function default(){
         $this->view='';
         $this->country = '';
 
-        return view('livewire.country');
+        return view('livewire.countries.country');
     }
     public function new()
     {
         $this->validate(["country" => '']);
         $this->country = '';
-        $this->view='livewire.countries.country-create';
+        $this->view='create';
     }
     public function store()
     {
@@ -46,7 +45,7 @@ class CountryComponent extends Component
         $c = Country::find($id);
         $this->country_id = $id;
         $this->country = $c->country;
-        $this->view = 'livewire.countries.country-edit';
+        $this->view = 'edit';
     }
     public function update()
     {

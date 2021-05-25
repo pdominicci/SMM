@@ -11,7 +11,7 @@
 
         <div class="my-2 text-xl font-bold m-3">{{ __('New Product') }}</div>
 
-        @include('livewire.products.form')
+        @include('livewire.products.product-form')
 
         <div class="px-4 py-5 bg-gray-100 flex items-center justify-end sm:p-6">
             <x-jet-button wire:click="store" >

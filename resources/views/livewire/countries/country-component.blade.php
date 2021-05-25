@@ -11,7 +11,7 @@
 
     @if ($view)
         <div>
-            @include("$view")
+            @include("livewire.countries.country-$view")
         </div>
     @endif
 

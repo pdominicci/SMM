@@ -9,7 +9,7 @@
 
         <div class="text-xl font-bold m-3">{{ __("Edit Product") }}</div>
 
-        @include('livewire.products.form')
+        @include('livewire.products.product-form')
 
         <div class="px-4 py-5 bg-gray-100 justify-end sm:p-6">
             <x-jet-button wire:click="update">

@@ -13,10 +13,10 @@
 <div>
     @if ($view)
         <div>
-            @include("livewire.products.$view")
+            @include("livewire.products.product-$view")
         </div>
     @endif
 
-    @include('livewire.products.table')
+    @include('livewire.products.product-table')
 </div>
 
