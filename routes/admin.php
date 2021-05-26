@@ -40,8 +40,8 @@ Route::prefix('/admin')->group(function(){
     Route::get('/countries/countries', [CountryComponent::class, 'default'])->name('countries');
 
     Route::get('/states/state', [StateComponent::class, 'default'])->name('states');
-    Route::get('/states/add', [StateController::class, 'create']);
-    Route::post('/states/add', [StateController::class, 'store']);
+    // Route::get('/states/add', [StateController::class, 'create']);
+    // Route::post('/states/add', [StateController::class, 'store']);
 
     Route::get('/cities', [CityController::class, 'index'])->name('cities');
     Route::get('/cities/add', [CityController::class, 'create']);

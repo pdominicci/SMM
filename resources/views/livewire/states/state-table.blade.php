@@ -22,6 +22,9 @@
                         <div class="text-left my-2 ml-2">{{ __("Id") }}</div>
                     </th>
                     <th scope="col" class="py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <div class="text-left my-2 ml-4">{{ __("Country") }}</div>
+                    </th>
+                    <th scope="col" class="py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <div class="text-left my-2 ml-4">{{ __("State") }}</div>
                     </th>
                     <th scope="col" class="relative px-2 py-2">
@@ -37,6 +40,11 @@
                     <td class="py-4 hidden lg:block px-2">
                         <div class="ml-2 text-sm font-medium text-gray-900">
                             {{ $state->id }}
+                        </div>
+                    </td>
+                    <td class="px-2">
+                        <div class="text-sm font-medium text-gray-900 sm:ml-2">
+                            {{ $state->relCountry->country }}
                         </div>
                     </td>
                     <td class="px-2">

@@ -82,7 +82,13 @@ class CountryComponent extends Component
     public function validar(){
         $this->validate(
             [
-                'country' => 'required|unique:App\Models\Country',
+                'country' => 'required|min:3|max:60|unique:App\Models\Country'
+            ],
+            [
+                'country.required' => 'El país es obligatorio',
+                'country.min'=> 'El país debe tener al menos dos caracteres',
+                'country.max'=> 'El país debe tener como máximo 60 caracteres',
+                'country.unique'=> 'El país ingresado ya existe',
             ]
         );
     }

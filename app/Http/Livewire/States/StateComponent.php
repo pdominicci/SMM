@@ -12,7 +12,7 @@ class StateComponent extends Component
     use WithPagination;
     public $view = '';
     public $state_id, $state;
-    public $countries;
+    public $country_id, $countries;
     public $data;
     public $search = '';
     public $perPage = '10';
@@ -23,7 +23,7 @@ class StateComponent extends Component
 
     public function render()
     {
-        $states = State::orderBy('state', 'asc')->where('state', 'like', "%{$this->search}%")->paginate($this->perPage);
+        $states = State::with('relCountry')->orderBy('state', 'asc')->where('state', 'like', "%{$this->search}%")->paginate($this->perPage);
         $data = ['states' => $states];
         return view('livewire.states.state-component',$data);
     }
@@ -39,13 +39,12 @@ class StateComponent extends Component
         $this->state = '';
         $this->view='create';
         $this->countries = Country::all();
-        $data = ['countries'=>$this->countries];
-
     }
     public function store()
     {
         $this->validar();
         $c = new State;
+        $c->country_id = $this->country_id;
         $c->state = $this->state;
         $c->save();
         $this->view = '';
@@ -57,17 +56,19 @@ class StateComponent extends Component
         // esto lo tuve que poner para que no me ponga dos veces el error cada vez que entraba a edit o new
         $this->validate(["state" => '']);
         $c = State::find($id);
+        $this->countries = Country::all();
+        $this->country_id = $c->country_id;
         $this->state_id = $id;
         $this->state = $c->state;
         $this->view = 'edit';
     }
     public function update()
     {
-
         $c = State::find($this->state_id);
 
         // si el pais que ingreso es distinto del que trae valido si no vuelve sin hacer nada
-        if ($c->state != $this->state){
+        if ($c->state != $this->state or $c->country_id != $this->country_id){
+            $c->country_id = $this->country_id;
             $c->state = $this->state;
             $this->validar();
             $c->save();
@@ -87,7 +88,16 @@ class StateComponent extends Component
     public function validar(){
         $this->validate(
             [
-                'state' => 'required|unique:App\Models\State',
+                'country_id' => 'required',
+                // validar unique con clave compuesta 'no puede haber dos provincias iguales en el mismo pais'
+                'state' => 'required|min:3|max:60|unique:App\Models\State,state,' . $this->id . ',id,country_id,' . $this->country_id
+            ],
+            [
+                'country_id.required' => 'El País es obligatorio',
+                'state.required' => 'La Provincia es obligatoria',
+                'state.min'=> 'La provincia debe tener al menos tres caracteres',
+                'state.max'=> 'La provincia debe tener como máximo 60 caracteres',
+                'state.unique'=> 'La provincia ingresada ya existe para el país seleccionado'
             ]
         );
     }
