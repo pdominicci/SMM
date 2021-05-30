@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
-use App\Models\UserCompanies;
+use App\Models\Company;
 use Livewire\WithPagination;
 class CityComponent extends Component
 {
@@ -35,9 +35,10 @@ class CityComponent extends Component
         $data = ['cities' => $cities];
         return view('livewire.cities.city-component',$data);
     }
+    // todas las veces que cambia Country en el form automaticamente entra en este evento
     public function updatedCountry($country)
     {
-        $this->states = State::where('country_id', $country)->get();
+        $this->states = State::where('country_id', $country)->orderBy('state','asc')->get();
     }
     public function default(){
         $this->view='';
@@ -71,16 +72,15 @@ class CityComponent extends Component
     {
         $this->validate(["city" => '']);
         $c = City::find($id);
-        $this->countries = Country::all();
+        $this->countries = Country::orderBy('country','asc')->get();
         $this->country_id = $c->country_id;
-        $s = State::all();
-        $this->state_id = $s->state_id;
         $this->city_id = $id;
         $this->city = $c->city;
         $this->view = 'edit';
     }
     public function update()
     {
+        $this->country_id = $this->country;
         $c = City::find($this->city_id);
 
         if ($c->city != $this->city or $c->country_id != $this->country_id or $c->state_id != $this->state_id){
@@ -99,24 +99,21 @@ class CityComponent extends Component
     {
         $c = City::find($id);
         $city = $c->city;
-        $existeEnUserCompany = UserCompanies::where('state_id',$id)->first();
-        // if ($existeEnCity){
-        //     session()->flash('danger', __("The State ':state' cannot be deleted is related to at least one City.", ['state' => $state]));
-        // }else {
-        //     State::destroy($id);
-        //     session()->flash('success', __("The State ':state' was deleted.", ['state' => $state]));
-        // }
-
-        City::destroy($id);
-        session()->flash('success', __("The City ':city' was deleted.", ['city' => $city]));
+        $existeEnUserCompany = Company::where('city_id',$id)->first();
+        if ($existeEnUserCompany){
+            session()->flash('danger', __("The City ':city' cannot be deleted is related to at least one Company.", ['city' => $city]));
+        }else {
+            City::destroy($id);
+            session()->flash('success', __("The City ':city' was deleted.", ['city' => $city]));
+        }
     }
     public function validar(){
         $this->validate(
             [
                 'country_id' => 'required',
                 'state_id' => 'required',
-                // validar unique con clave compuesta 'no puede haber dos provincias iguales en el mismo pais'
-                'city' => 'required|min:3|max:60|unique:App\Models\City,city,' . $this->id . ',id,country_id,' . $this->country_id
+                // validar unique con clave compuesta 'no puede haber dos ciudades iguales en el mismo pais y provincia'
+                'city' => 'required|min:3|max:60|unique:App\Models\City,city,id,' . $this->id . ',state_id,' . $this->state_id . ',country_id,' . $this->country_id
             ],
             [
                 'country_id.required' => 'El País es obligatorio',
@@ -124,7 +121,7 @@ class CityComponent extends Component
                 'city.required' => 'La Ciudad es obligatoria',
                 'city.min'=> 'La Ciudad debe tener al menos tres caracteres',
                 'city.max'=> 'La Ciudad debe tener como máximo 60 caracteres',
-                'city.unique'=> 'La Ciudad ingresada ya existe para el país seleccionado'
+                'city.unique'=> 'La Ciudad ingresada ya existe para el país y provincia seleccionados'
             ]
         );
     }
