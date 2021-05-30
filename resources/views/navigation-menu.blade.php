@@ -179,8 +179,14 @@
             <x-jet-responsive-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')" >
                 {{ __('Products') }}
             </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('categories') }}" :active="request()->routeIs('categories')" >
-                {{ __('Categories') }}
+            <x-jet-responsive-nav-link href="{{ route('countries') }}" :active="request()->routeIs('countries')" >
+                {{ __('Countries') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('states') }}" :active="request()->routeIs('states')" >
+                {{ __('States') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('cities') }}" :active="request()->routeIs('cities')" >
+                {{ __('Cities') }}
             </x-jet-responsive-nav-link>
         </div>
 

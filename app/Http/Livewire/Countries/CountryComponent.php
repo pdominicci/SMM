@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Countries;
 
 use App\Models\Country;
+use App\Models\State;
 use Livewire\WithPagination;
 use Livewire\Component;
-
 class CountryComponent extends Component
 {
     use WithPagination;
@@ -75,9 +75,15 @@ class CountryComponent extends Component
     public function destroy($id)
     {
         $c = Country::find($id);
+        $this->country_id = $id;
         $country = $c->country;
-        Country::destroy($id);
-        session()->flash('success', __("The Country ':country' was deleted.", ['country' => $country]));
+        $existeEnState = State::where('country_id',$id)->first();
+        if ($existeEnState){
+            session()->flash('danger', __("The Country ':country' cannot be deleted is related to at least one State.", ['country' => $country]));
+        }else {
+            Country::destroy($id);
+            session()->flash('success', __("The Country ':country' was deleted.", ['country' => $country]));
+        }
     }
     public function validar(){
         $this->validate(

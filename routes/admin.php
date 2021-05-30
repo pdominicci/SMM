@@ -8,13 +8,15 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountryController;
-use App\Http\Controllers\Admin\StateController;
-use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\UserCompaniesController;
+use App\Http\Livewire\Cities\CityComponent;
 use App\Http\Livewire\Products\ProductComponent;
 use App\Http\Livewire\Countries\CountryComponent;
 use App\Http\Livewire\States\StateComponent;
+
+use App\Http\Controllers\Admin\CityController;
+
 
 Route::prefix('/admin')->group(function(){
     Route::get('/', [DashboardController::class,'getDashboard']);
@@ -43,9 +45,11 @@ Route::prefix('/admin')->group(function(){
     // Route::get('/states/add', [StateController::class, 'create']);
     // Route::post('/states/add', [StateController::class, 'store']);
 
-    Route::get('/cities', [CityController::class, 'index'])->name('cities');
+    Route::get('/cities/city', [CityComponent::class, 'default'])->name('cities');
+    Route::get('/cities', [CityController::class, 'index']);
     Route::get('/cities/add', [CityController::class, 'create']);
-    Route::post('/cities/add', [CityController::class, 'store']);
+    // Route::get('/cities/add', [CityController::class, 'create']);
+    // Route::post('/cities/add', [CityController::class, 'store']);
 
     // para los combos anidados
     Route::get('/country', [CountryController::class, 'country']);

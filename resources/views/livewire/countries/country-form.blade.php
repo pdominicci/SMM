@@ -1,6 +1,7 @@
 <div class="">
     <div class="px-4 py-5 bg-white sm:p-6">
         <div class="col-span-6 sm:col-span-4">
+            {{-- <x-jet-input type="hidden" id="country_id" wire:model="country_id" /> --}}
             <x-jet-label>{{ __('Country') }}</x-jet-label>
             <x-jet-input type="text" class="block mt-1 w-full" id="country" wire:model="country" />
             @error('country')

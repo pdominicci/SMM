@@ -4,6 +4,7 @@ namespace App\Http\Livewire\States;
 
 use App\Models\Country;
 use App\Models\State;
+use App\Models\City;
 use Livewire\WithPagination;
 use Livewire\Component;
 
@@ -38,7 +39,7 @@ class StateComponent extends Component
         $this->validate(["state" => '']);
         $this->state = '';
         $this->view='create';
-        $this->countries = Country::all();
+        $this->countries = Country::orderBy('country','asc')->get();
     }
     public function store()
     {
@@ -56,7 +57,7 @@ class StateComponent extends Component
         // esto lo tuve que poner para que no me ponga dos veces el error cada vez que entraba a edit o new
         $this->validate(["state" => '']);
         $c = State::find($id);
-        $this->countries = Country::all();
+        $this->countries = Country::orderBy('country','asc')->get();
         $this->country_id = $c->country_id;
         $this->state_id = $id;
         $this->state = $c->state;
@@ -82,8 +83,13 @@ class StateComponent extends Component
     {
         $c = State::find($id);
         $state = $c->state;
-        State::destroy($id);
-        session()->flash('success', __("The State ':state' was deleted.", ['state' => $state]));
+        $existeEnCity = City::where('state_id',$id)->first();
+        if ($existeEnCity){
+            session()->flash('danger', __("The State ':state' cannot be deleted is related to at least one City.", ['state' => $state]));
+        }else {
+            State::destroy($id);
+            session()->flash('success', __("The State ':state' was deleted.", ['state' => $state]));
+        }
     }
     public function validar(){
         $this->validate(

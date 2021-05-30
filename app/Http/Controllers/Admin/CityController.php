@@ -12,7 +12,6 @@ class CityController extends Controller
 {
     public function __construct(Request $request){
         $this->middleware('auth');
-        $this->middleware('isadmin');
         $this->id = $request->input('id');
         $this->state_id = $request->input('state_id');
         $this->country_id = $request->input('country_id');
