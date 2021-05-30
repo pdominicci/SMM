@@ -13,7 +13,7 @@ class CityComponent extends Component
     use WithPagination;
     public $view = '';
     public $city_id, $city;
-    public $country_id, $countries;
+    public $country_id, $country, $countries;
     public $state_id, $states;
     public $data;
     public $search = '';
@@ -23,11 +23,21 @@ class CityComponent extends Component
         'perPage'
     ];
 
+    public function mount()
+    {
+        $this->countries = Country::all();
+        $this->states = collect();
+    }
+
     public function render()
     {
         $cities = City::with('relCountry')->with('relState')->orderBy('city', 'asc')->where('city', 'like', "%{$this->search}%")->paginate($this->perPage);
         $data = ['cities' => $cities];
         return view('livewire.cities.city-component',$data);
+    }
+    public function updatedCountry($country)
+    {
+        $this->states = State::where('country_id', $country)->get();
     }
     public function default(){
         $this->view='';
@@ -40,11 +50,13 @@ class CityComponent extends Component
         $this->validate(["city" => '']);
         $this->city = '';
         $this->view='create';
+
         $this->countries = Country::orderBy('country','asc')->get();
-        $this->states = State::orderBy('state','asc')->get();
+        //$this->states = State::orderBy('state','asc')->get();
     }
     public function store()
     {
+        $this->country_id = $this->country;
         $this->validar();
         $c = new City;
         $c->country_id = $this->country_id;
@@ -102,15 +114,17 @@ class CityComponent extends Component
         $this->validate(
             [
                 'country_id' => 'required',
+                'state_id' => 'required',
                 // validar unique con clave compuesta 'no puede haber dos provincias iguales en el mismo pais'
                 'city' => 'required|min:3|max:60|unique:App\Models\City,city,' . $this->id . ',id,country_id,' . $this->country_id
             ],
             [
                 'country_id.required' => 'El País es obligatorio',
-                'city.required' => 'La Provincia es obligatoria',
-                'city.min'=> 'La provincia debe tener al menos tres caracteres',
-                'city.max'=> 'La provincia debe tener como máximo 60 caracteres',
-                'city.unique'=> 'La provincia ingresada ya existe para el país seleccionado'
+                'state_id.required' => 'La Provincia es obligatoria',
+                'city.required' => 'La Ciudad es obligatoria',
+                'city.min'=> 'La Ciudad debe tener al menos tres caracteres',
+                'city.max'=> 'La Ciudad debe tener como máximo 60 caracteres',
+                'city.unique'=> 'La Ciudad ingresada ya existe para el país seleccionado'
             ]
         );
     }
