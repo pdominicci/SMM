@@ -34,6 +34,9 @@
                                 <x-jet-dropdown-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                                     {{ __('Users') }}
                                 </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('companies') }}" :active="request()->routeIs('companies')">
+                                    {{ __('Companies') }}
+                                </x-jet-dropdown-link>
                                 <x-jet-dropdown-link href="{{ route('categories') }}" :active="request()->routeIs('categories')">
                                     {{ __('Categories') }}
                                 </x-jet-dropdown-link>
@@ -178,6 +181,9 @@
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')" >
                 {{ __('Products') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('companies') }}" :active="request()->routeIs('companies')" >
+                {{ __('Companies') }}
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('countries') }}" :active="request()->routeIs('countries')" >
                 {{ __('Countries') }}
