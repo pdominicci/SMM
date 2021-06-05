@@ -17,13 +17,13 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr class="mx-10 sm:ml-4">
-                    <th scope="col" class="ml-2 hidden lg:block py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="ml-2 hidden lg:inline-block py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <div class="text-left my-2 ml-2">{{ __("Id") }}</div>
                     </th>
                     <th scope="col" class="py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <div class="text-left my-2 ml-4">{{ __("Title") }}</div>
                     </th>
-                    <th scope="col" class="py-2 hidden lg:block text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="py-2 hidden lg:inline-block text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <div class="text-left my-2 ml-2">{{ __("Price") }}</div>
                     </th>
                     <th scope="col" class="relative px-2 py-2">
@@ -36,7 +36,7 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @foreach ($products as $product)
                 <tr class="my-auto">
-                    <td class="py-4 hidden lg:block px-2">
+                    <td class="py-4 hidden lg:inline-block px-2">
                         <div class="ml-2 text-sm font-medium text-gray-900">
                             {{ $product->id }}
                         </div>
@@ -46,7 +46,7 @@
                             {{ $product->name }}
                         </div>
                     </td>
-                    <td class="px-2 hidden lg:block">
+                    <td class="px-2 hidden lg:inline-block">
                         <div class="text-sm font-medium text-gray-900">
                             {{ $product->price }}
                         </div>

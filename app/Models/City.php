@@ -18,7 +18,10 @@ class City extends Model
     {
         return $this->hasOne(State::class,'id','state_id');
     }
-
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
     public function relCompany()
     {
         return $this->hasOne(Company::class,'id','company_id');

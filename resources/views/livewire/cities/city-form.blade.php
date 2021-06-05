@@ -2,7 +2,7 @@
     <div class="px-4 py-5 bg-white sm:p-6">
         <x-jet-label>{{ __('Country') }}</x-jet-label>
 
-        <select wire:model="country" id="country_id" class="mb-2 shadow appearance-none w-full border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+        <select wire:model="country" id="country_id" class="border-gray-300 mb-2 shadow appearance-none w-full border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
             <option value="" selected>{{ __('Choose Country') }}</option>
             @foreach ($countries as $c)
                 <option value="{{ $c->id }}">{{ $c->country }}</option>
@@ -14,7 +14,7 @@
         @if (!is_null($country))
             <x-jet-label>{{ __('State') }}</x-jet-label>
 
-            <select wire:model="state_id" id="state_id" class="mb-2 shadow appearance-none w-full border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+            <select wire:model="state_id" id="state_id" class="border-gray-300 mb-2 shadow appearance-none w-full border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
                 <option value="" selected>{{ __('Choose State') }}</option>
                 @foreach($states as $s)
                     <option value="{{ $s->id }}">{{ $s->state }}</option>

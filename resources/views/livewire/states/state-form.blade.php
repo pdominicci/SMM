@@ -1,7 +1,7 @@
 <div class="">
     <div class="px-4 py-5 bg-white sm:p-6">
         <div class="col-span-6 sm:col-span-4">
-            <select wire:model="country_id" id="country_id" class="mb-2 shadow appearance-none w-full border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+            <select wire:model="country_id" id="country_id" class="border-gray-300 mb-2 shadow appearance-none w-full border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
                 <option value="">Seleccione un País</option>
                 @foreach ($countries as $c)
                     <option value="{{$c->id}}">{{$c->country}}</option>

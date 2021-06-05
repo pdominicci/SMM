@@ -4,8 +4,6 @@
             <p>{{ $message }}</p>
         </div>
     </div>
-@else
-    <div>dddd</div>
 @enderror
 <div class="bg-white overflow-hidden shadow-md rounded-md col-span-12 sm:col-span-12">
     <div class="bg-gray-200 grid shadow-inner grid-cols-1 divide-y-2 divide-gray-300">

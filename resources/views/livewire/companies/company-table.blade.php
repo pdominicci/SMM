@@ -18,10 +18,10 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr class="mx-10 sm:ml-4">
-                    <th scope="col" class="ml-2 hidden lg:block py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="ml-2 hidden lg:inline-block py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <div class="text-left my-2 ml-2">{{ __("Id") }}</div>
                     </th>
-                    <th scope="col" class="py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="py-2 hidden lg:inline-block text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <div class="text-left my-2 ml-4">{{ __("City | Address") }}</div>
                     </th>
                     <th scope="col" class="py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -37,12 +37,12 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @foreach ($companies as $company)
                 <tr class="my-auto">
-                    <td class="py-4 hidden lg:block px-2">
+                    <td class="py-4 hidden hidden lg:inline-block px-2">
                         <div class="ml-2 text-sm font-medium text-gray-900">
                             {{ $company->id }}
                         </div>
                     </td>
-                    <td class="px-2">
+                    <td class="px-2 hidden lg:inline-block">
                         <div class="text-sm text-gray-500 sm:ml-2">
                             {{ $company->relCity->city }}
                         </div>
