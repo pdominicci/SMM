@@ -11,4 +11,9 @@
             @livewire('companies.company-component')
         </div>
     </div>
+
+
 </x-app-layout>
+
+
+

@@ -63,6 +63,8 @@ class CompanyComponent extends Component
 
         $this->countries = Country::orderBy('country','asc')->get();
         $this->states = State::orderBy('state','asc')->get();
+        $this->dispatchBrowserEvent('initialize', []);
+
     }
     public function updatedCompany($company)
     {
