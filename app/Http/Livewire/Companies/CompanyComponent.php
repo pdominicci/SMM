@@ -18,7 +18,7 @@ class CompanyComponent extends Component
     public $country_id, $country, $countries;
     public $state_id, $states, $state;
     public $company, $web;
-    public $address;
+    public $address='';
     public $data;
     public $search = '';
     public $perPage = '10';
@@ -83,6 +83,7 @@ class CompanyComponent extends Component
         } else {
             foreach ($this->states as $s){
                 $this->address = $s->relCountry->country;
+                break;
             }
 
             $this->dispatchBrowserEvent('geocodeAddress', []);
@@ -90,10 +91,38 @@ class CompanyComponent extends Component
     }
     public function updatedState($state)
     {
-        $this->cities = City::where('state_id', $state)->orderBy('city','asc')->get();
+        $this->cities = City::where('state_id', $state)->with('relState')->orderBy('city','asc')->get();
         if (is_null($this->cities)){
             $this->state = "";
             $this->city = "";
+        } else {
+            foreach ($this->cities as $c){
+                $this->address .= ' ' . $c->relState->state;
+                break;
+            }
+
+            $this->dispatchBrowserEvent('geocodeAddress', []);
         }
+    }
+    public function updatedCity($city)
+    {
+        $this->companies = Company::where('city_id', $city)->with('relCity')->get();
+
+
+
+
+            foreach ($this->companies as $c){
+                $this->address .= ' ' . $c->relCity->city;
+                break;
+            }
+
+            $this->dispatchBrowserEvent('geocodeAddress', []);
+
+    }
+    public function updatedAddress($address)
+    {
+        $this->address = $address;
+        $this->dispatchBrowserEvent('geocodeAddress', []);
+
     }
 }

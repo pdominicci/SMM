@@ -38,7 +38,7 @@
 
                 <div class="col-span-6 sm:col-span-4">
                     <x-jet-label>{{ __('City') }}</x-jet-label>
-                    <select wire:model="city_id" id="city_id" class="border-gray-300 shadow appearance-none w-full border text-gray-700  px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                    <select wire:model="city" id="city_id" class="border-gray-300 shadow appearance-none w-full border text-gray-700  px-4 pr-8 rounded leading-tight focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
                         <option value="" selected>{{ __('Choose City') }}</option>
                         @if ($state)
                             @foreach($cities as $city)

@@ -16,7 +16,6 @@ function initMap(){
     return map;
 }
 window.addEventListener('geocodeAddress', event => {
-    console.log('a');
     var resultsMap = initMap();
     const geocoder = new google.maps.Geocoder();
     const address = document.getElementById("address").value;
