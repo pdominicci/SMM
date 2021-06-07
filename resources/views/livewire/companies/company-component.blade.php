@@ -10,7 +10,7 @@
     @enderror
 
     @if ($view)
-            @include("livewire.companies.company-$view")
+        @include("livewire.companies.company-$view")
     @endif
 
     @include('livewire.companies.company-table')

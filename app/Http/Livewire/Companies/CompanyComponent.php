@@ -64,7 +64,7 @@ class CompanyComponent extends Component
 
         $this->countries = Country::orderBy('country','asc')->get();
         $this->states = State::orderBy('state','asc')->get();
-        $this->dispatchBrowserEvent('initialize', []);
+        //$this->dispatchBrowserEvent('initialize', []);
 
     }
     public function updatedCompany($company)
@@ -74,7 +74,6 @@ class CompanyComponent extends Component
     }
     public function updatedCountry($country)
     {
-
         $this->states = State::where('country_id', $country)->with('relCountry')->orderBy('state','asc')->get();
 
         if (is_null($this->states)){
@@ -85,8 +84,7 @@ class CompanyComponent extends Component
                 $this->address = $s->relCountry->country;
                 break;
             }
-
-            $this->dispatchBrowserEvent('geocodeAddress', []);
+            $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 3]);
         }
     }
     public function updatedState($state)
@@ -100,29 +98,21 @@ class CompanyComponent extends Component
                 $this->address .= ' ' . $c->relState->state;
                 break;
             }
-
-            $this->dispatchBrowserEvent('geocodeAddress', []);
+            $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 6]);
         }
     }
     public function updatedCity($city)
     {
         $this->companies = Company::where('city_id', $city)->with('relCity')->get();
-
-
-
-
-            foreach ($this->companies as $c){
-                $this->address .= ' ' . $c->relCity->city;
-                break;
-            }
-
-            $this->dispatchBrowserEvent('geocodeAddress', []);
-
+        foreach ($this->companies as $c){
+            $this->address .= ' ' . $c->relCity->city;
+            break;
+        }
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 8]);
     }
     public function updatedAddress($address)
     {
         $this->address = $address;
-        $this->dispatchBrowserEvent('geocodeAddress', []);
-
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 16]);
     }
 }

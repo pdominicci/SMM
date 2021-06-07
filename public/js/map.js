@@ -1,22 +1,20 @@
 window.addEventListener('initialize', event => {
-    var resultsMap = initMap();
-
-    // const geocoder = new google.maps.Geocoder();
-    // document.getElementById("submit").addEventListener("click", () => {
-    // geocodeAddress(geocoder, map);
-    // });
+    var zoom = 2;
+    var resultsMap = initMap(zoom);
 })
-function initMap(){
+function initMap(zoom){
     var map = new google.maps.Map(
         document.getElementById("map"), {
         center: new google.maps.LatLng(37.4419, -122.1419),
-        zoom: 13,
+        zoom: zoom,
 
     });
     return map;
 }
 window.addEventListener('geocodeAddress', event => {
-    var resultsMap = initMap();
+    //console.log("aca "+event.detail.zoom);
+    //alert('Name updated to: ' + event.detail.newName);
+    var resultsMap = initMap(event.detail.zoom);
     const geocoder = new google.maps.Geocoder();
     const address = document.getElementById("address").value;
     geocoder.geocode({ address: address }, (results, status) => {
