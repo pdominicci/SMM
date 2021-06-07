@@ -51,7 +51,7 @@
 
                 <div class="col-span-6 sm:col-span-4">
                     <x-jet-label>{{ __('Address') }}</x-jet-label>
-                    <x-jet-input type="text" class="block w-full" id="address1" wire:model="address" />
+                    <x-jet-input type="text" class="block w-full" id="address" wire:model="address" />
                     @error('address')<div role="alert"><div class=" border border-red-400 rounded bg-red-100 px-4 text-red-700"><p>{{ $message }}</p></div></div>@enderror
                 </div>
             </div>
@@ -108,14 +108,14 @@
         </div>
     </div>
 
-    <form action="" >
+    {{-- <form action="" >
         @csrf
     <div class=""><input type="text" id="address" ></div>
     <button id="submit" onclick="event.preventDefault();
-    this.closest('form').submit();">boton</button>
+    this.closest('form').submit();">boton</button>--}}
         <div id="map" class="h-48 w-200 bg-red"></div>
 
-    </form>
+    {{-- </form>  --}}
     {{-- @livewire('maps.map-component') --}}
 
 

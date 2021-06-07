@@ -18,6 +18,7 @@ class CompanyComponent extends Component
     public $country_id, $country, $countries;
     public $state_id, $states, $state;
     public $company, $web;
+    public $address;
     public $data;
     public $search = '';
     public $perPage = '10';
@@ -73,10 +74,18 @@ class CompanyComponent extends Component
     }
     public function updatedCountry($country)
     {
-        $this->states = State::where('country_id', $country)->orderBy('state','asc')->get();
+
+        $this->states = State::where('country_id', $country)->with('relCountry')->orderBy('state','asc')->get();
+
         if (is_null($this->states)){
             $this->state = "";
             $this->city = "";
+        } else {
+            foreach ($this->states as $s){
+                $this->address = $s->relCountry->country;
+            }
+
+            $this->dispatchBrowserEvent('geocodeAddress', []);
         }
     }
     public function updatedState($state)
