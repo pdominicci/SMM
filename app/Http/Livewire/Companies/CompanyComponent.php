@@ -14,9 +14,9 @@ class CompanyComponent extends Component
 {
     use WithPagination;
     public $view = '';
-    public $city_id, $cities, $city;
-    public $country_id, $country, $countries;
-    public $state_id, $states, $state;
+    public $city_id, $cities, $city, $city_name;
+    public $country_id, $country, $countries, $country_name;
+    public $state_id, $states, $state, $state_name;
     public $company, $web;
     public $address='';
     public $data;
@@ -81,7 +81,8 @@ class CompanyComponent extends Component
             $this->city = "";
         } else {
             foreach ($this->states as $s){
-                $this->address = $s->relCountry->country;
+                $this->country_name = $s->relCountry->country;
+                $this->address = $this->country_name;
                 break;
             }
             $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 3]);
@@ -95,7 +96,8 @@ class CompanyComponent extends Component
             $this->city = "";
         } else {
             foreach ($this->cities as $c){
-                $this->address .= ' ' . $c->relState->state;
+                $this->state_name = $c->relState->state;
+                $this->address = $this->country_name . ' ' . $this->state_name;
                 break;
             }
             $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 6]);
@@ -103,11 +105,9 @@ class CompanyComponent extends Component
     }
     public function updatedCity($city)
     {
-        $this->companies = Company::where('city_id', $city)->with('relCity')->get();
-        foreach ($this->companies as $c){
-            $this->address .= ' ' . $c->relCity->city;
-            break;
-        }
+        $c = City::where('id', $city)->first();
+        $this->city_name = $c->city;
+        $this->address = $this->country_name . ' ' . $this->state_name . ' ' . $this->city_name;
         $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 8]);
     }
     public function updatedAddress($address)
