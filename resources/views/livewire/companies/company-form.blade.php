@@ -62,9 +62,11 @@
                     <div class="flex -mr-px">
                         <span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-gray-300 px-3 whitespace-no-wrap text-grey-dark text-sm"><i class="text-2xl fas fa-map-marker-alt"></i></span>
                     </div>
-                    <x-jet-input type="text" id="address" wire:model="address" disabled class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-gray-300 rounded rounded-l-none px-3 relative focus:border-blue focus:shadow" />
-                    @error('address')<div role="alert"><div class=" border border-red-400 rounded bg-red-100 px-4 text-red-700"><p>{{ $message }}</p></div></div>@enderror
+                    <x-jet-input type="text" id="addressaux" wire:model="addressaux" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-gray-300 rounded rounded-l-none px-3 relative focus:border-blue focus:shadow" />
+                    @error('addressaux')<div role="alert"><div class=" border border-red-400 rounded bg-red-100 px-4 text-red-700"><p>{{ $message }}</p></div></div>@enderror
                 </div>
+
+                <x-jet-input type="hidden" id="address" wire:model="address"/>
 
             </div>
         </div>
@@ -120,17 +122,9 @@
         </div>
     </div>
 
-    {{-- <form action="" >
-        @csrf
-    <div class=""><input type="text" id="address" ></div>
-    <button id="submit" onclick="event.preventDefault();
-    this.closest('form').submit();">boton</button>--}}
-        <div id="map" class="h-48 w-200 bg-red"></div>
-
-    {{-- </form>  --}}
-    {{-- @livewire('maps.map-component') --}}
-
-
+    @if ($address)
+        <div id="map" class="h-64 w-full bg-red"></div>
+    @endif
 </div>
 
 

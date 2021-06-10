@@ -18,7 +18,7 @@ class CompanyComponent extends Component
     public $country_id, $country, $countries, $country_name;
     public $state_id, $states, $state, $state_name;
     public $company, $web;
-    public $address='';
+    public $address = '', $addressaux = '';
     public $data;
     public $search = '';
     public $perPage = '10';
@@ -28,6 +28,7 @@ class CompanyComponent extends Component
     ];
     public function mount($city = null)
     {
+        $this->country = 0;
         $this->countries = Country::all();
         $this->states = collect();
         $this->cities = collect();
@@ -58,14 +59,30 @@ class CompanyComponent extends Component
     public function new()
     {
         $this->validate(["city" => '']);
+        $this->address = 'Argentina';
+        $this->addressaux = '';
         $this->city = '';
         $this->state = '';
+        $this->country = '';
         $this->view='create';
 
         $this->countries = Country::orderBy('country','asc')->get();
         $this->states = State::orderBy('state','asc')->get();
-        //$this->dispatchBrowserEvent('initialize', []);
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 3]);
+    }
+    public function store()
+    {
+        $this->country_id = $this->country;
+        $this->validar();
+        $c = new Company;
+        $c->country_id = $this->country;
+        $c->state_id = $this->state;
+        $c->city_id = $this->city;
+        $c->website = $this->web;
 
+        $c->save();
+        $this->view = '';
+        session()->flash('success', __("The City ':city' was created.", ['city' => $c->city]));
     }
     public function updatedCompany($company)
     {
@@ -74,22 +91,26 @@ class CompanyComponent extends Component
     }
     public function updatedCountry($country)
     {
+
+        $this->address = '';
+        $this->addressaux = '';
+        $c = Country::where('id',$country)->first();
+
+        $this->country_name = $c->country;
+        $this->address = $this->country_name;
+
         $this->states = State::where('country_id', $country)->with('relCountry')->orderBy('state','asc')->get();
 
         if (is_null($this->states)){
             $this->state = "";
             $this->city = "";
-        } else {
-            foreach ($this->states as $s){
-                $this->country_name = $s->relCountry->country;
-                $this->address = $this->country_name;
-                break;
-            }
-            $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 3]);
         }
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 3]);
     }
     public function updatedState($state)
     {
+        $this->address = '';
+        $this->addressaux = '';
         $this->cities = City::where('state_id', $state)->with('relState')->orderBy('city','asc')->get();
         if (is_null($this->cities)){
             $this->state = "";
@@ -105,14 +126,16 @@ class CompanyComponent extends Component
     }
     public function updatedCity($city)
     {
+        $this->address = '';
+        $this->addressaux = '';
         $c = City::where('id', $city)->first();
         $this->city_name = $c->city;
         $this->address = $this->country_name . ' ' . $this->state_name . ' ' . $this->city_name;
-        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 8]);
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 10]);
     }
-    public function updatedAddress($address)
+    public function updatedAddressaux($addressaux)
     {
-        $this->address = $address;
+        $this->address = $this->country_name . ' ' . $this->state_name . ' ' . $this->city_name .' '. $addressaux;
         $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 16]);
     }
 }
