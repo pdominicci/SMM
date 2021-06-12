@@ -1,4 +1,5 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
+
 <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="modalForm">
     {{-- <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"> --}}
     {{-- le saque el sm:block porque al ir achicando el modal desaparecia y era ese sm:block el que estaba jodiendo --}}
@@ -12,8 +13,12 @@
 
       {{-- <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"> --}}
 
-        <div class="my-2 text-xl font-bold m-3">{{ __('New Company') }}</div>
-
+        <div class="mt-2 ml-3 text-xl font-bold ">{{ __('New Company') }}</div>
+        <div class="hidden sm:block">
+            <div class="mt-1">
+                <div class="border-t border-gray-200"></div>
+            </div>
+        </div>
         @include('livewire.companies.company-form')
 
         <div class="px-4 py-5 bg-gray-100 flex items-center justify-end sm:p-6">

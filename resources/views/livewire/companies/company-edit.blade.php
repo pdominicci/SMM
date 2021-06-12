@@ -8,7 +8,11 @@
       <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
 
         <div class="text-xl font-bold m-3">{{ __("Edit Company") }}</div>
-
+        <div class="hidden sm:block">
+            <div class="mt-1">
+                <div class="border-t border-gray-200"></div>
+            </div>
+        </div>
         @include('livewire.companies.company-form')
 
         <div class="px-4 py-5 bg-gray-100 justify-end sm:p-6">

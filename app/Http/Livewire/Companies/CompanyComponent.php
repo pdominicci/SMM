@@ -18,16 +18,19 @@ class CompanyComponent extends Component
     public $country_id, $country, $countries, $country_name;
     public $state_id, $states, $state, $state_name;
     public $company, $web;
-    public $address = '', $addressaux = '';
+    public $address, $addressaux;
+    public $email, $confirmemail, $whatsapp, $instagram, $facebook, $twitter, $latitude, $longitude;
     public $data;
     public $search = '';
     public $perPage = '10';
+    public $zoom;
     protected $queryString = [
         'search' => ['except' => ''],
         'perPage'
     ];
     public function mount($city = null)
     {
+        $this->company = '';
         $this->country = 0;
         $this->countries = Country::all();
         $this->states = collect();
@@ -43,6 +46,7 @@ class CompanyComponent extends Component
                 $this->state = $c->state_id;
             }
         }
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 3]);
     }
     public function render()
     {
@@ -73,12 +77,25 @@ class CompanyComponent extends Component
     public function store()
     {
         $this->country_id = $this->country;
-        $this->validar();
+        //$this->validar();
         $c = new Company;
-        $c->country_id = $this->country;
-        $c->state_id = $this->state;
+        $c->company = $this->company;
+        $c->slug = Str::slug(trim($this->company),'');
+        $c->phone = '222';
         $c->city_id = $this->city;
         $c->website = $this->web;
+        $c->address = $this->addressaux;
+        if ($this->email == $this->confirmemail){
+            $c->email = $this->email;
+        } else {
+            // error email y confirmemail no coinciden
+        }
+        $c->whatsapp = $this->whatsapp;
+        $c->instagram = $this->instagram;
+        $c->facebook = $this->facebook;
+        $c->twitter = $this->twitter;
+        $c->latitude = '';
+        $c->longitude = '';
 
         $c->save();
         $this->view = '';
@@ -88,10 +105,10 @@ class CompanyComponent extends Component
     {
         $this->web = "shopmaster.";
         $this->web .= Str::slug(trim($company),'');
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => $this->zoom]);
     }
     public function updatedCountry($country)
     {
-
         $this->address = '';
         $this->addressaux = '';
         $c = Country::where('id',$country)->first();
@@ -105,7 +122,8 @@ class CompanyComponent extends Component
             $this->state = "";
             $this->city = "";
         }
-        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 3]);
+        $this->zoom = 3;
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => $this->zoom]);
     }
     public function updatedState($state)
     {
@@ -121,7 +139,8 @@ class CompanyComponent extends Component
                 $this->address = $this->country_name . ' ' . $this->state_name;
                 break;
             }
-            $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 6]);
+            $this->zoom = 6;
+            $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => $this->zoom]);
         }
     }
     public function updatedCity($city)
@@ -131,11 +150,13 @@ class CompanyComponent extends Component
         $c = City::where('id', $city)->first();
         $this->city_name = $c->city;
         $this->address = $this->country_name . ' ' . $this->state_name . ' ' . $this->city_name;
-        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 10]);
+        $this->zoom = 10;
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => $this->zoom]);
     }
     public function updatedAddressaux($addressaux)
     {
         $this->address = $this->country_name . ' ' . $this->state_name . ' ' . $this->city_name .' '. $addressaux;
-        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => 16]);
+        $this->zoom = 16;
+        $this->dispatchBrowserEvent('geocodeAddress', ['zoom' => $this->zoom]);
     }
 }

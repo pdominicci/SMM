@@ -76,7 +76,7 @@
                 <div class="flex -mr-px">
                     <span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-gray-300 px-3 whitespace-no-wrap text-grey-dark text-sm"><i class="text-2xl far fa-envelope"></i></span>
                 </div>
-                <x-jet-input type="text" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-gray-300 rounded rounded-l-none px-3 relative focus:border-blue focus:shadow" />
+                <x-jet-input type="text" wire:model="email" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-gray-300 rounded rounded-l-none px-3 relative focus:border-blue focus:shadow" />
                 @error('email')<div role="alert"><div class=" border border-red-400 rounded bg-red-100 px-4 text-red-700"><p>{{ $message }}</p></div></div>@enderror
             </div>
             <x-jet-label class="mt-1">{{ __('Confirm Email') }}</x-jet-label>
@@ -84,15 +84,16 @@
                 <div class="flex -mr-px">
                     <span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-gray-300 px-3 whitespace-no-wrap text-grey-dark text-sm"><i class="text-2xl far fa-envelope"></i></span>
                 </div>
-                <x-jet-input type="text" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-gray-300 rounded rounded-l-none px-3 relative focus:border-blue focus:shadow" />
+                <x-jet-input type="text" wire:model="confirmemail" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-gray-300 rounded rounded-l-none px-3 relative focus:border-blue focus:shadow" />
                 @error('confirm_email')<div role="alert"><div class=" border border-red-400 rounded bg-red-100 px-4 text-red-700"><p>{{ $message }}</p></div></div>@enderror
             </div>
             <x-jet-label class="mt-1">{{ __('Whatsapp') }}</x-jet-label>
+
             <div class="flex flex-wrap items-stretch w-full relative">
                 <div class="flex -mr-px">
                     <span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-gray-300 px-3 whitespace-no-wrap text-grey-dark text-sm"><i class="text-2xl fab fa-whatsapp"></i></span>
                 </div>
-                <x-jet-input type="text" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-gray-300 rounded rounded-l-none px-3 relative focus:border-blue focus:shadow" />
+                <x-jet-input type="text" wire:model="whatsapp" class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-gray-300 rounded rounded-l-none px-3 relative focus:border-blue focus:shadow" />
                 @error('whatsapp')<div role="alert"><div class=" border border-red-400 rounded bg-red-100 px-4 text-red-700"><p>{{ $message }}</p></div></div>@enderror
             </div>
             <x-jet-label class="mt-1">{{ __('Instagram') }}</x-jet-label>
@@ -122,9 +123,9 @@
         </div>
     </div>
 
-    @if ($address)
-        <div id="map" class="h-64 w-full bg-red"></div>
-    @endif
+
+    <div id="map" class="h-64 w-full bg-red"></div>
+
 </div>
 
 

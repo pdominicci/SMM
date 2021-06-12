@@ -10,7 +10,11 @@
       <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
 
         <div class="my-2 text-xl font-bold m-3">{{ __('New State') }}</div>
-
+        <div class="hidden sm:block">
+            <div class="mt-1">
+                <div class="border-t border-gray-200"></div>
+            </div>
+        </div>
         @include('livewire.states.state-form')
 
         <div class="px-4 py-5 bg-gray-100 flex items-center justify-end sm:p-6">
